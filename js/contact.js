@@ -37,6 +37,7 @@ const finish = () => {
   submitting = false;
   form.hidden = true;
   done.hidden = false;
+  document.querySelectorAll(".contact-intro, .contact-book, .contact-line").forEach((el) => { el.hidden = true; });
   if (typeof gtag === "function") gtag("event", "contact_form_submit");
   done.focus();
   window.scrollTo({ top: 0, behavior: "smooth" });

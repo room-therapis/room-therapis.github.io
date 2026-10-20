@@ -1551,3 +1551,8 @@ ul.guide-list--items > .guide-item > div::before { content: ""; position: absolu
   .concept .core-point { container-type: inline-size; }
   .core-point > p.point-text-2line { font-size: min(.95rem, calc(100cqw / 21.6)); letter-spacing: 0; }
 }
+/* お問い合わせページ：予約サイトボタン／送信完了 */
+.contact-book { margin: 0 0 20px; text-align: center; }
+.contact-book .btn { border-radius: 4px; min-width: 240px; }
+.contact-done .contact-done-title { margin: 0 0 16px; font-size: 1.6rem; line-height: 1.5; color: var(--color-ink); }
+.contact-done .btn { border-radius: 4px; }

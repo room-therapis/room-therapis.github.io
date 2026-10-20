@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://room-therapis.github.io/sitemap.xml

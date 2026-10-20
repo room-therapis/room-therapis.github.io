@@ -145,3 +145,19 @@ if (pointExpand && pointMores.length) {
   wideMq.addEventListener("change", placeBodies);
   placeBodies();
 }
+
+// Googleアナリティクス：予約・電話・LINE・お問い合わせ・SNSのボタンが押された回数を記録
+document.addEventListener("click", (event) => {
+  if (typeof gtag !== "function") return;
+  const link = event.target.closest("a");
+  if (!link) return;
+  const href = link.getAttribute("href") || "";
+  let name = "";
+  if (link.hasAttribute("data-booking-link")) name = "booking_click";
+  else if (href.startsWith("tel:")) name = "tel_click";
+  else if (href.includes("lin.ee")) name = "line_click";
+  else if (href.includes("instagram.com")) name = "instagram_click";
+  else if (href.includes("facebook.com")) name = "facebook_click";
+  else if (link.hasAttribute("data-contact-link") || href.endsWith("contact.html")) name = "contact_click";
+  if (name) gtag("event", name, { link_text: link.textContent.trim().slice(0, 40), page_path: location.pathname });
+});

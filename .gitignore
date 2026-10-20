@@ -1,0 +1,17 @@
+.DS_Store
+README.md
+a-refined/
+studio-v2/
+proposal*.html
+preview-*.html
+js/redesign.js
+images/hero.jpg
+images/icon-comfort.jpg
+images/icon-location.jpg
+images/icon-room.jpg
+images/icon-rooms.jpg
+images/guide/entrance.jpg
+images/guide/flow_01.jpg
+images/guide/flow_02.jpg
+.claude/
+css/redesign.css

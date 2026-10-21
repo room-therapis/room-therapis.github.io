@@ -4,8 +4,15 @@ const done = document.getElementById("contactDone");
 const submitButton = form.querySelector(".contact-submit");
 let submitting = false;
 
+// 全角の英数字・記号を半角にそろえる（例：ｔｅｓｔ＠ｇｍａｉｌ．ｃｏｍ → test@gmail.com）
 const toHalfWidth = (value) =>
-  value.replace(/[０-９－]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xfee0)).replace(/\s+/g, "");
+  value.replace(/[！-～]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xfee0)).replace(/\u3000/g, " ");
+
+// 電話番号：全角数字や、いろいろな種類の「ー」「−」「（）」・空白を整えて「090-1234-5678」の形にする
+const normalizeTel = (value) =>
+  toHalfWidth(value)
+    .replace(/[ー‐‑‒–—―−ｰ]/g, "-")
+    .replace(/[\s()]/g, "");
 
 const fieldIsValid = (name) => {
   const inputs = form.querySelectorAll(`[name="${name}"]`);
@@ -60,9 +67,9 @@ const fail = () => {
 
 form.addEventListener("submit", (event) => {
   const tel = form.querySelector('[name="entry.290535761"]');
-  tel.value = toHalfWidth(tel.value);
+  tel.value = normalizeTel(tel.value);
   const email = form.querySelector('[name="entry.146166439"]');
-  email.value = email.value.trim();
+  email.value = toHalfWidth(email.value).replace(/\s+/g, "");
 
   const invalid = fieldNames.filter((name) => !fieldIsValid(name));
   fieldNames.forEach((name) => showError(name, invalid.includes(name)));

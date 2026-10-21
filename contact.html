@@ -103,7 +103,7 @@
 
     <div class="contact-field">
       <label for="cfTel">電話番号<span class="contact-opt">任意</span></label>
-      <input id="cfTel" type="tel" name="entry.290535761" autocomplete="tel" inputmode="tel" placeholder="090-1234-5678" pattern="[0-9０-９\-－ ]{10,14}">
+      <input id="cfTel" type="tel" name="entry.290535761" autocomplete="tel" inputmode="tel" placeholder="090-1234-5678" pattern="\+?[0-9\-]{10,15}">
       <p class="contact-error" data-error-for="entry.290535761">電話番号は数字とハイフンで入力してください</p>
     </div>
 
@@ -114,7 +114,7 @@
     </div>
 
     <p class="contact-agree">ご入力の情報は、お問い合わせへの回答と<br class="sp-only">ご予約のご連絡にのみ使用します。<br><a href="privacy.html">プライバシーポリシー</a></p>
-    <p class="contact-send-error" id="contactSendError" role="alert" hidden>送信できませんでした。通信環境をご確認のうえ、もう一度「送信する」を押してください。<br>うまくいかない場合は、<a href="https://lin.ee/xlNNEwW" target="_blank" rel="noopener">公式LINE</a>からご連絡ください。</p>
+    <p class="contact-send-error" id="contactSendError" role="alert" hidden>送信できませんでした。通信環境をご確認のうえ、もう一度「送信する」を押してください。<br>うまくいかない場合は、お手数ですがお電話（<a href="tel:08068313388">080-6831-3388</a>）でご連絡ください。</p>
     <button class="btn btn-primary btn-block contact-submit" type="submit">送信する</button>
   </form>
 
@@ -148,6 +148,6 @@
 </div>
 
 <script src="js/main.js?v=18"></script>
-<script src="js/contact.js?v=7"></script>
+<script src="js/contact.js?v=8"></script>
 </body>
 </html>

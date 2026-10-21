@@ -1,6 +1,5 @@
 // サイト独自デザインのフォームから、裏側でGoogleフォームへ送信する
 const form = document.getElementById("contactForm");
-const sink = document.getElementById("contactFormSink");
 const done = document.getElementById("contactDone");
 const submitButton = form.querySelector(".contact-submit");
 let submitting = false;
@@ -13,6 +12,8 @@ const fieldIsValid = (name) => {
   if (inputs[0].type === "radio") return [...inputs].some((input) => input.checked);
   const input = inputs[0];
   if (input.required && !input.value.trim()) return false;
+  // メールアドレスは「@」の後ろに「.」を含む形だけ受け付ける（例：name@example → 返信できないため不可）
+  if (input.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim())) return false;
   return input.checkValidity();
 };
 
@@ -32,9 +33,13 @@ fieldNames.forEach((name) => {
   });
 });
 
+const sendError = document.getElementById("contactSendError");
+const doneEmail = document.getElementById("contactDoneEmail");
+
 const finish = () => {
   if (!submitting) return;
   submitting = false;
+  doneEmail.textContent = form.querySelector('[name="entry.146166439"]').value;
   form.hidden = true;
   done.hidden = false;
   document.querySelectorAll(".contact-intro, .contact-book, .contact-line").forEach((el) => { el.hidden = true; });
@@ -43,9 +48,21 @@ const finish = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
+// 送信できなかったときは「完了」を出さず、入力内容を残したままもう一度送れる状態に戻す
+const fail = () => {
+  submitting = false;
+  submitButton.disabled = false;
+  submitButton.textContent = "送信する";
+  sendError.hidden = false;
+  sendError.scrollIntoView({ block: "center", behavior: "smooth" });
+  if (typeof gtag === "function") gtag("event", "contact_form_error");
+};
+
 form.addEventListener("submit", (event) => {
   const tel = form.querySelector('[name="entry.290535761"]');
   tel.value = toHalfWidth(tel.value);
+  const email = form.querySelector('[name="entry.146166439"]');
+  email.value = email.value.trim();
 
   const invalid = fieldNames.filter((name) => !fieldIsValid(name));
   fieldNames.forEach((name) => showError(name, invalid.includes(name)));
@@ -57,25 +74,27 @@ form.addEventListener("submit", (event) => {
     return;
   }
 
+  // 古いブラウザなど、裏側で送る仕組みが使えない場合は、通常のフォーム送信（Googleの完了画面へ移動）に任せる
+  if (typeof fetch !== "function" || typeof AbortController !== "function") return;
+
+  event.preventDefault();
+  if (submitting) return;
   submitting = true;
+  sendError.hidden = true;
   submitButton.disabled = true;
   submitButton.textContent = "送信中…";
 
   // ブラウザのGoogleログイン情報を付けずに送る（Chromeで複数アカウントにログインしていると、
   // ログイン情報付きの送信はGoogleに受け付けられないため）
-  event.preventDefault();
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 20000);
   fetch(form.action, {
     method: "POST",
     mode: "no-cors",
     credentials: "omit",
     body: new URLSearchParams(new FormData(form)),
+    signal: controller.signal,
   })
-    .then(finish)
-    .catch(() => {
-      // 通信に失敗した場合は、従来どおり見えない窓（iframe）から送る
-      form.submit();
-      setTimeout(finish, 8000);
-    });
+    .then(() => { clearTimeout(timer); finish(); })
+    .catch(() => { clearTimeout(timer); fail(); });
 });
-
-sink.addEventListener("load", finish);

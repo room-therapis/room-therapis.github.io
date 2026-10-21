@@ -32,7 +32,7 @@
 <link rel="icon" href="images/favicon-32x32.png" sizes="32x32">
 <link rel="icon" href="images/favicon-192x192.png" sizes="192x192">
 <link rel="apple-touch-icon" href="images/favicon-180x180.png">
-<link rel="stylesheet" href="css/style.css?v=287">
+<link rel="stylesheet" href="css/style.css?v=288">
 </head>
 <body class="terms-page has-site-header">
 <header class="site-header scrolled" id="siteHeader">
@@ -69,7 +69,7 @@
 
   <form class="contact-form" id="contactForm" novalidate
         action="https://docs.google.com/forms/d/e/1FAIpQLSc-KTNARyCoVv58cjdPgiz-CQZ9eIC4RVnNzM3VKFBfmjQXcw/formResponse"
-        method="POST" target="contactFormSink">
+        method="POST">
 
     <fieldset class="contact-field">
       <legend>お問い合わせ区分<span class="contact-req">必須</span></legend>
@@ -114,16 +114,17 @@
     </div>
 
     <p class="contact-agree">ご入力の情報は、お問い合わせへの回答と<br class="sp-only">ご予約のご連絡にのみ使用します。<br><a href="privacy.html">プライバシーポリシー</a></p>
+    <p class="contact-send-error" id="contactSendError" role="alert" hidden>送信できませんでした。通信環境をご確認のうえ、もう一度「送信する」を押してください。<br>うまくいかない場合は、<a href="https://lin.ee/xlNNEwW" target="_blank" rel="noopener">公式LINE</a>からご連絡ください。</p>
     <button class="btn btn-primary btn-block contact-submit" type="submit">送信する</button>
   </form>
 
   <div class="contact-done" id="contactDone" hidden tabindex="-1">
     <p class="contact-done-title">送信が完了しました</p>
     <p>お問い合わせありがとうございます。<br>内容を確認のうえ、ご入力のメールアドレスへご連絡いたします。</p>
+    <p class="contact-done-email">ご入力のメールアドレス<br><strong id="contactDoneEmail"></strong></p>
     <a class="btn btn-outline" href="index.html">トップページへ</a>
   </div>
 
-  <iframe name="contactFormSink" id="contactFormSink" class="contact-sink" title="送信処理" aria-hidden="true" tabindex="-1"></iframe>
 </main>
 
 <!-- ============ フッター ============ -->
@@ -146,6 +147,6 @@
 </div>
 
 <script src="js/main.js?v=18"></script>
-<script src="js/contact.js?v=6"></script>
+<script src="js/contact.js?v=7"></script>
 </body>
 </html>

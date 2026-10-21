@@ -60,7 +60,22 @@ form.addEventListener("submit", (event) => {
   submitting = true;
   submitButton.disabled = true;
   submitButton.textContent = "送信中…";
-  setTimeout(finish, 8000);
+
+  // ブラウザのGoogleログイン情報を付けずに送る（Chromeで複数アカウントにログインしていると、
+  // ログイン情報付きの送信はGoogleに受け付けられないため）
+  event.preventDefault();
+  fetch(form.action, {
+    method: "POST",
+    mode: "no-cors",
+    credentials: "omit",
+    body: new URLSearchParams(new FormData(form)),
+  })
+    .then(finish)
+    .catch(() => {
+      // 通信に失敗した場合は、従来どおり見えない窓（iframe）から送る
+      form.submit();
+      setTimeout(finish, 8000);
+    });
 });
 
 sink.addEventListener("load", finish);

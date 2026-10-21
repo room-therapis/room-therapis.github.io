@@ -1,0 +1,24 @@
+# お問い合わせフォームの見張り役
+# 毎朝9時（日本時間）に、サイトのフォームと送信先のGoogleフォームが食い違っていないか確かめる。
+# 食い違い・受付停止・ログイン必須などを見つけると「失敗」になり、GitHubからメールで通知が届く。
+name: お問い合わせフォームの点検
+
+on:
+  schedule:
+    - cron: "0 0 * * *"   # 毎日 0:00 UTC ＝ 日本時間 9:00
+  push:
+    paths:
+      - "contact.html"
+      - "scripts/check_contact_form.py"
+  workflow_dispatch:      # GitHubの画面から手動でも実行できる
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Googleフォームとサイトのフォームを照合
+        run: python3 scripts/check_contact_form.py

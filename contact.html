@@ -34,7 +34,7 @@
 <link rel="icon" href="images/favicon-32x32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="images/favicon-192x192.png" sizes="192x192">
 <link rel="apple-touch-icon" href="images/favicon-180x180.png">
-<link rel="stylesheet" href="css/style.css?v=289">
+<link rel="stylesheet" href="css/style.css?v=290">
 </head>
 <body class="terms-page has-site-header">
 <header class="site-header scrolled" id="siteHeader">
@@ -101,6 +101,8 @@
       <label for="cfEmail">メールアドレス<span class="contact-req">必須</span></label>
       <input id="cfEmail" type="email" name="entry.146166439" autocomplete="email" inputmode="email" placeholder="example@mail.com" required>
       <p class="contact-error" data-error-for="entry.146166439">正しいメールアドレスを入力してください</p>
+      <p class="contact-hint" id="emailSuggest" hidden>もしかして <button type="button" class="contact-hint-fix"></button> ですか？（押すと入れ替わります）</p>
+      <p class="contact-hint" id="emailCarrier" hidden>携帯会社のメールアドレスは、受信設定によって返信が届かないことがあります。パソコンからのメールを受け取れるよう設定いただくか、電話番号もご入力ください。</p>
     </div>
 
     <div class="contact-field">
@@ -150,6 +152,6 @@
 </div>
 
 <script src="js/main.js?v=18"></script>
-<script src="js/contact.js?v=8"></script>
+<script src="js/contact.js?v=10"></script>
 </body>
 </html>

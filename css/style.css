@@ -1566,3 +1566,8 @@ ul.guide-list--items > .guide-item > div::before { content: ""; position: absolu
 /* お問い合わせ：メールアドレスの打ち間違い・携帯会社メールの注意 */
 .contact-hint { margin: 8px 0 0; padding: 8px 10px; border-radius: 4px; background: #fbf5ea; font-size: .8rem; line-height: 1.7; color: var(--color-ink); }
 .contact-hint-fix { padding: 0; border: none; background: none; font: inherit; font-weight: 700; color: var(--color-accent-dark); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; word-break: break-all; }
+/* スマホ：オイルの注意の写真を小さめにし、文章の幅を広げる（「ヒートマッ／ト」のような細い折り返しを防ぐ） */
+@media (max-width: 599px) {
+  .oil-notice .oil-item { gap: 10px; }
+  .oil-notice .oil-thumb { width: 64px; }
+}
